@@ -25,9 +25,16 @@ public class MainActivity extends ActionBarActivity {
 
         tv = (TextView) findViewById(R.id.tv);
 
-        mt = new MyTask();
+        mt = (MyTask) getLastNonConfigurationInstance();
+        if(mt == null) {
+            mt = new MyTask();
+            mt.execute();
+        }
         Log.d("qwe", "create MyTask: " + mt.hashCode());
-        mt.execute();
+    }
+
+    public Object onRetainNonConfiguraionInstance(){
+        return mt ;
     }
 
     @Override
